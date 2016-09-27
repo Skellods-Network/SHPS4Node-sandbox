@@ -147,21 +147,31 @@ var _newSandbox
                 sb.log = libs.log.newLog($requestState);
                 rebuildContext = true;
             },
+
+            shpsFile: () => {
+
+                sb.file = {};
+                sb.file.handleUpload = libs.file.handleUpload.bind(libs.file.handleUpload, $requestState);
+                rebuildContext = true;
+            },
             
             shpsParameters: function f_sandbox_newSandbox_addFeature_shpsParameters() {
 
                 sb.GET = $requestState.GET;
                 sb.POST = $requestState.POST;
                 sb.SESSION = $requestState.SESSION;
+                sb.FILE = $requestState.FILE;
 
                 // PHP compat
                 sb._GET = sb.GET;
                 sb._POST = sb.POST;
                 sb._SESSION = sb.SESSION;
+                sb._FILES = sb.FILE;
 
                 sb.$_GET = sb.GET;
                 sb.$_POST = sb.POST;
                 sb.$_SESSION = sb.SESSION;
+                sb.$_FILES = sb.FILE;
             },
             
             shpsRequest: function f_sandbox_newSandbox_addFeature_shpsRequest() {
