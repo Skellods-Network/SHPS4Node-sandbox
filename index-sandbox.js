@@ -1,19 +1,20 @@
 'use strict';
 
-var me = module.exports;
-
-var q = require('q');
 var vm = require('vm');
 
 var libs = require('node-mod-load').libs;
+var q = require('q');
+var validator = require('validator');
 
+
+var me = module.exports;
 
 var _newSandbox 
 = me.newSandbox = function f_sandbox_newSandbox($requestState) {
     
     return new (function () {
         
-        var sb = {};
+        var sb = Object.assign({}, validator);
         var context;
         var rebuildContext = true;
         
@@ -147,21 +148,31 @@ var _newSandbox
                 sb.log = libs.log.newLog($requestState);
                 rebuildContext = true;
             },
+
+            shpsFile: () => {
+
+                sb.file = {};
+                sb.file.handleUpload = libs.file.handleUpload.bind(libs.file.handleUpload, $requestState);
+                rebuildContext = true;
+            },
             
             shpsParameters: function f_sandbox_newSandbox_addFeature_shpsParameters() {
 
                 sb.GET = $requestState.GET;
                 sb.POST = $requestState.POST;
                 sb.SESSION = $requestState.SESSION;
+                sb.FILE = $requestState.FILE;
 
                 // PHP compat
                 sb._GET = sb.GET;
                 sb._POST = sb.POST;
                 sb._SESSION = sb.SESSION;
+                sb._FILES = sb.FILE;
 
                 sb.$_GET = sb.GET;
                 sb.$_POST = sb.POST;
                 sb.$_SESSION = sb.SESSION;
+                sb.$_FILES = sb.FILE;
             },
             
             shpsRequest: function f_sandbox_newSandbox_addFeature_shpsRequest() {
