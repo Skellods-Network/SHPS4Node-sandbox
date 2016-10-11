@@ -1,6 +1,6 @@
 {
     "name": "SHPS4Node-sandbox",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "Sandbox Module for Improved Security used by SHPS",
     "author": "Marco Alka <me@marco-alka.de>",
     "main": "index-sandbox.js",
